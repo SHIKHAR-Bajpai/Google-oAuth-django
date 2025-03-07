@@ -73,10 +73,9 @@
             newFileItem.innerHTML = `
                 <a href="https://drive.google.com/uc?id=${data.file_id}" target="_blank" class="text-blue-500 hover:underline">${data.file_name}</a>
                 <button onclick="downloadFile('${data.file_id}')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Download</button>`;
-            fileList.appendChild(newFileItem);
+            fileList.prepend(newFileItem);
         }
 
-            window.location.reload(); 
         })
         .catch(error => {
             console.error("Error uploading file:", error);

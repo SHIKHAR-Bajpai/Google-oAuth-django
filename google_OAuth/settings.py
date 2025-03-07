@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'daphne',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,6 +85,19 @@ CORS_ALLOW_ALL_ORIGINS = [
     "https://google-oauth-django.onrender.com",
     "*",
 ]
+
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+    'accept',
+    'accept-language',
+    'origin',
+    'x-requested-with',
+    'x-csrf-token',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

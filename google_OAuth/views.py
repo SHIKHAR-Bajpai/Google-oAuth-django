@@ -266,7 +266,7 @@ def upload_file(request):
         token_uri=settings.GOOGLE_TOKEN_URL,
         client_id=settings.GOOGLE_CLIENT_ID,
         client_secret=settings.GOOGLE_CLIENT_SECRET,
-        scopes=["https://www.googleapis.com/auth/drive.file"],
+        scopes=["https://www.googleapis.com/auth/drive"],
     )
 
     service = build("drive", "v3", credentials=credentials)
@@ -288,14 +288,12 @@ def upload_file(request):
 
             file_id = uploaded_file_data.get("id")
         
-            # print("\n ----------Checkpoint---------- \n")
 
             return JsonResponse({"message": "File uploaded successfully.", "file_id": file_id, "file_name": uploaded_file.name})
         except Exception as e:
             logger.error(f"Error uploading file: {e}", exc_info=True)
             return JsonResponse({"error": str(e)}, status=500)
-
-    # print("\n ----------Checkpoint---------- \n")
+        
     return JsonResponse({"error": "No file provided."}, status=400)
 
 
