@@ -1,0 +1,95 @@
+{% include "header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Drive Integration</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <header class="py-8 shadow-md bg-blue-600 text-white text-center">
+        <h1 class="text-4xl font-bold">Google Drive Integration</h1>
+    </header>
+
+    <div class="container mx-auto px-6 py-10">
+        <div class="bg-white shadow-lg rounded-lg p-4">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Your Google Drive Files</h2>
+            
+            <ul id="file-list" class="space-y-3">
+                {% for file in files %}
+                    <li class="flex justify-between items-center bg-gray-100 p-4 rounded-md">
+                        {{ file.name }}
+                        <button onclick="downloadFile('{{ file.id }}')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Download</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 pb-10">
+        <div class="bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Upload a File to Google Drive</h2>
+            <form id="upload-form" method="POST" enctype="multipart/form-data" class="flex flex-col space-y-4">
+                {% csrf_token %}
+                <input type="file" name="file" id="file-input" class="border border-gray-300 rounded p-2">
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const fileInput = document.getElementById('file-input');
+
+        if (!fileInput.files.length) {
+            alert("Please select a file to upload.");
+            return;
+        }
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        fetch('/drive/upload/', {
+            method: 'POST',
+            body: formData,
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+        alert(data.message);
+
+        if (data.file_id) {
+            const fileList = document.getElementById('file-list');
+            const newFileItem = document.createElement('li');
+            newFileItem.classList.add('flex', 'justify-between', 'items-center', 'bg-gray-100', 'p-4', 'rounded-md');
+            newFileItem.innerHTML = `
+                <a href="https://drive.google.com/uc?id=${data.file_id}" target="_blank" class="text-blue-500 hover:underline">${data.file_name}</a>
+                <button onclick="downloadFile('${data.file_id}')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Download</button>`;
+            fileList.appendChild(newFileItem);
+        }
+
+            window.location.reload(); 
+        })
+        .catch(error => {
+            console.error("Error uploading file:", error);
+
+                alert('Error uploading file');
+            });
+        })
+        
+        
+        function downloadFile(fileId) {
+            window.location.href = `/drive/download/${fileId}/`;
+        }
+    </script>
+
+</body>
+</html>

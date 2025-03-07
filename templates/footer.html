@@ -1,0 +1,36 @@
+
+<div class="text-4xl text-center font-bold mt-10 items-center">Streamline Your Workflow with<span class="text-blue-500 flex-col text-6xl">  Google & </span> </div>
+<div class="text-6xl font-bold mb-48 mx-auto text-green-500 float-right">  Real-Time Chat </div>
+    <!-- Footer Section -->
+    <footer class="text-center text-gray-900 text-sm mt-8 mb-10">
+        <p>&copy; 2025 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Simulating fetching user details from backend (Replace this with actual API call)
+        function getUserData() {
+            return JSON.parse(localStorage.getItem("user")) || null;
+        }
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            const user = getUserData();
+            const loginBtn = document.getElementById("login-btn");
+            const userProfile = document.getElementById("user-profile");
+            const userName = document.getElementById("user-name");
+            const userImage = document.getElementById("user-image");
+    
+            if (user) {
+                // Hide Login Button
+                loginBtn.classList.add("hidden");
+    
+                // Show User Profile
+                userProfile.classList.remove("hidden");
+                userName.textContent = user.name;
+                userImage.src = user.image || "https://via.placeholder.com/40"; // Default image if none
+            }
+        });
+    </script>
+    
+
+</body>
+</html>

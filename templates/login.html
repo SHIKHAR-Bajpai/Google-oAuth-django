@@ -1,0 +1,60 @@
+{% include "header.html" %}
+
+<!-- welcome.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        .user-container {
+            font-family: Arial, sans-serif;  
+            padding: 20px 0;
+        }
+        .user-info {
+            font-size: 18px;
+            text-align: left;
+            max-width: 600px;
+            margin: 0px auto;
+            padding: 20px;
+            background-color: #e3f2fd;
+            border-radius: 10px;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start;
+        }
+        .user-info p {
+            margin: 10px 0;
+            padding: 5px;
+        }
+        .date {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #555;
+        }
+        .user-picture {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            margin: auto; 
+        }
+    </style>
+</head>
+<body>
+    <div class="user-container mb-12">
+        <div class="user-info">
+            {% if user_data.picture %}
+                <img src="{{ user_data.picture }}" alt="User Picture" class="user-picture">
+            {% endif %}
+    
+            {% for key, value in user_data.items %}
+                {% if key != "picture" %}
+                    <p><strong>{{ key|title }}:</strong> {{ value }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
