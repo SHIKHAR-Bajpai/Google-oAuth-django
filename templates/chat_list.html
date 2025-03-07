@@ -1,13 +1,98 @@
-<html>
-    <body>
-        
-<h2>Chat List</h2>
-<ul>
-    {% for user in users %}
-        <li><a href="{% url 'chat_detail' user.username %}">{{ user.username }}</a></li>
-    {% empty %}
-        <li>No users available to chat.</li>
-    {% endfor %}
-</ul>
-    </body>
+{% include "header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat List</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8;
+        }
+        .chat-list-container {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .chat-header {
+            background-color: #3182ce;
+            color: white;
+            padding: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        .chat-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .chat-list li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            transition: background 0.3s;
+        }
+        .chat-list li:last-child {
+            border-bottom: none;
+        }
+        .chat-list a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2d3748;
+            transition: color 0.3s;
+        }
+        .chat-list a:hover {
+            color: #3182ce;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #cbd5e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-right: 10px;
+            color: white;
+        }
+        .no-users {
+            text-align: center;
+            padding: 20px;
+            font-size: 1rem;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-list-container">
+    <div class="chat-header">
+        Chat List
+    </div>
+    <ul class="chat-list">
+        {% for user in users %}
+            <li>
+                <a href="{% url 'chat_detail' user.username %}">
+                    <div class="user-avatar bg-blue-500">{{ user.username|slice:":1"|upper }}</div>
+                    {{ user.username }}
+                </a>
+            </li>
+        {% empty %}
+            <li class="no-users">No users available to chat.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
 </html>
