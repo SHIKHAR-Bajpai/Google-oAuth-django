@@ -77,3 +77,6 @@ This project is a comprehensive backend template that integrates the following t
 ### WebSocket Chat
 - **WebSocket Connection**: `ws://localhost:8000/ws/chat/`
 - **Real-time messaging between two users**
+
+### Deployment
+- **Deployment Link**: `https://google-oauth-django.onrender.com`
