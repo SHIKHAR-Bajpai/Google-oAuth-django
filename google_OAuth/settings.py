@@ -80,7 +80,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'google_OAuth.wsgi.application'
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = [
+    "https://google-oauth-django.onrender.com",
+    "*",
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
