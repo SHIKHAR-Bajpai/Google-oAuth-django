@@ -146,6 +146,6 @@ GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth"
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USER_INFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
-GOOGLE_REDIRECT_URI = "http://127.0.0.1:8000/google/callback/" 
+GOOGLE_REDIRECT_URI = "https://google-oauth-django.onrender.com/google/callback/" 
 
 
